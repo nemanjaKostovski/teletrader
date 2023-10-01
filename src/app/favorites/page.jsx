@@ -1,22 +1,13 @@
 'use client';
 
-import Link from 'next/link';
-import { getSymbols, getSymbolDetails } from './components/utils/api';
+import { getSymbolDetails } from '../components/utils/api';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
-export default function Home() {
-  const [symbols, setSymbols] = useState(null);
+const Favorites = () => {
   const [symbolsDetails, setSymbolsDetails] = useState([]);
 
-  useEffect(() => {
-    async function symbolsFetching() {
-      const data = await getSymbols();
-
-      setSymbols(data.data.slice(0, 5));
-    }
-
-    symbolsFetching();
-  }, []);
+  const symbols = JSON.parse(localStorage.getItem('favorites')) || null;
 
   useEffect(() => {
     if (!symbols) return;
@@ -36,7 +27,7 @@ export default function Home() {
     return () => {
       clearInterval(handleId);
     };
-  }, [symbols]);
+  }, []);
   return (
     <main>
       <h1>Homepage</h1>
@@ -71,4 +62,5 @@ export default function Home() {
       </table>
     </main>
   );
-}
+};
+export default Favorites;
