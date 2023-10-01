@@ -12,7 +12,9 @@ async function getSymbols() {
 }
 
 async function getSymbolDetails(symbol) {
-  const response = await fetch(`${URL}${VERSION}/pubticker/${symbol}`);
+  const response = await fetch(
+    `https://api-pub.bitfinex.com/v2/ticker/t${symbol.toUpperCase()}`
+  );
   if (response.status !== 200) {
     console.log(response);
   }

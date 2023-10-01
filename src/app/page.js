@@ -45,8 +45,8 @@ export default function Home() {
           <tr>
             <th className='text-left'>Name</th>
             <th className='text-right'>Last</th>
-            {/* <th>Change</th>
-            <th>Change Percent</th> */}
+            <th className='text-right'>Change</th>
+            <th className='text-right'>Change Percent</th>
             <th className='text-right'>High</th>
             <th className='text-right'>Low</th>
           </tr>
@@ -64,6 +64,8 @@ export default function Home() {
                   </Link>
                 </td>
                 <td className='text-right'>{details.data.last_price}</td>
+                <td className='text-right'>{details.data.change}</td>
+                <td className='text-right'>{details.data.change_percent}</td>
                 <td className='text-right'>{details.data.high}</td>
                 <td className='text-right'>{details.data.low}</td>
               </tr>

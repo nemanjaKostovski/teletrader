@@ -6,8 +6,14 @@ import Link from 'next/link';
 
 const Favorites = () => {
   const [symbolsDetails, setSymbolsDetails] = useState([]);
+  const [symbols, setSymbols] = useState(null);
 
-  const symbols = JSON.parse(localStorage.getItem('favorites')) || null;
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const favorites = localStorage.getItem('favorites');
+    if (!favorites) return;
+    setSymbols(JSON.parse(favorites));
+  }, []);
 
   useEffect(() => {
     if (!symbols) return;
@@ -27,7 +33,7 @@ const Favorites = () => {
     return () => {
       clearInterval(handleId);
     };
-  }, []);
+  }, [symbols]);
   return (
     <main>
       <h1>Favorites page</h1>
@@ -36,8 +42,8 @@ const Favorites = () => {
           <tr>
             <th className='text-left'>Name</th>
             <th className='text-right'>Last</th>
-            {/* <th>Change</th>
-            <th>Change Percent</th> */}
+            <th className='text-right'>Change</th>
+            <th className='text-right'>Change Percent</th>
             <th className='text-right'>High</th>
             <th className='text-right'>Low</th>
           </tr>
@@ -55,6 +61,8 @@ const Favorites = () => {
                   </Link>
                 </td>
                 <td className='text-right'>{details.data.last_price}</td>
+                <td className='text-right'>{details.data.change}</td>
+                <td className='text-right'>{details.data.change_percent}</td>
                 <td className='text-right'>{details.data.high}</td>
                 <td className='text-right'>{details.data.low}</td>
               </tr>

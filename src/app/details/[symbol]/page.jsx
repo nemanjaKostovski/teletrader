@@ -1,21 +1,13 @@
 'use client';
 
+import { useLoginContext } from '@/app/components/loginContext/loginContext';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
 const page = ({ params }) => {
   const searchParams = useSearchParams();
-  const [login, setLogin] = useState(false);
+  const { login } = useLoginContext();
   const [favorites, setFavorites] = useState([]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    if (login) return;
-    const isLoggedIn = localStorage.getItem('login');
-    if (isLoggedIn) {
-      setLogin(true);
-    }
-  }, [login]);
 
   useEffect(() => {
     const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
