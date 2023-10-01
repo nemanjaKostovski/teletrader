@@ -37,31 +37,39 @@ const page = ({ params }) => {
   return (
     <div>
       <h2>Details</h2>
-      <table className='w-1/2 mt-8 text-center'>
+      <table className='w-1/2 mt-8 ml-4 shadow-md table-auto border-separate p-4'>
         <thead>
           <tr>
-            <th>Symbol</th>
-            <th>Last price</th>
-            <th>High</th>
-            <th>Low</th>
+            <th className='text-left'>Symbol</th>
+            <th className='text-right'>Last price</th>
+            <th className='text-right'>High</th>
+            <th className='text-right'>Low</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{symbol}</td>
-            <td>{last}</td>
-            <td>{high}</td>
-            <td>{low}</td>
+            <td className='text-left'>{symbol}</td>
+            <td className='text-right'>{last}</td>
+            <td className='text-right'>{high}</td>
+            <td className='text-right'>{low}</td>
           </tr>
         </tbody>
       </table>
       {isLoggedIn &&
         (favorites.includes(symbol) ? (
-          <button onClick={handleRemoveFromFavorites}>
+          <button
+            className='m-4 p-2 px-6 bg-red-500'
+            onClick={handleRemoveFromFavorites}
+          >
             Remove from Favorites
           </button>
         ) : (
-          <button onClick={handleAddToFavorites}>Add to Favorites</button>
+          <button
+            className='m-4 p-2 px-6 bg-blue-500'
+            onClick={handleAddToFavorites}
+          >
+            Add to Favorites
+          </button>
         ))}
     </div>
   );

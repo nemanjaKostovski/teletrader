@@ -23,10 +23,23 @@ const Navbar = () => {
   return (
     <nav className='flex flex-row justify-between w-9/12'>
       <div className='w-60 flex justify-evenly'>
-        <Link href='/'>Home</Link>
-        {login && <Link href='/favorites'>Favorites</Link>}
+        <Link className='hover:text-blue-500 active:text-blue-600' href='/'>
+          Home
+        </Link>
+        {login && (
+          <Link
+            className='hover:text-blue-500 active:text-blue-600'
+            href='/favorites'
+          >
+            Favorites
+          </Link>
+        )}
       </div>
-      {!login && <button onClick={handleLogin}>Login</button>}
+      {!login && (
+        <button className='m-4 p-2 px-6 bg-blue-500' onClick={handleLogin}>
+          Login
+        </button>
+      )}
     </nav>
   );
 };

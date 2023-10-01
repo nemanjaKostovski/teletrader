@@ -40,31 +40,32 @@ export default function Home() {
   return (
     <main>
       <h1>Homepage</h1>
-      <table className='w-1/2 mt-8 ml-4 text-center'>
+      <table className='w-1/2 mt-8 ml-4 shadow-md table-auto border-separate p-4'>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Last</th>
+            <th className='text-left'>Name</th>
+            <th className='text-right'>Last</th>
             {/* <th>Change</th>
             <th>Change Percent</th> */}
-            <th>High</th>
-            <th>Low</th>
+            <th className='text-right'>High</th>
+            <th className='text-right'>Low</th>
           </tr>
         </thead>
         <tbody>
           {symbols &&
             symbolsDetails.map((details, index) => (
               <tr key={`${details.data.symbol}${index}`}>
-                <td>
+                <td className='text-left'>
                   <Link
                     href={`/details/${details.data.symbol}?last_price=${details.data.last_price}&high=${details.data.high}&low=${details.data.low}`}
+                    className='text-blue-500 hover:text-blue-600 active:text-blue-700'
                   >
                     {details.data.symbol.toUpperCase()}
                   </Link>
                 </td>
-                <td>{details.data.last_price}</td>
-                <td>{details.data.high}</td>
-                <td>{details.data.low}</td>
+                <td className='text-right'>{details.data.last_price}</td>
+                <td className='text-right'>{details.data.high}</td>
+                <td className='text-right'>{details.data.low}</td>
               </tr>
             ))}
         </tbody>
