@@ -1,39 +1,50 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 const page = ({ params }) => {
   const searchParams = useSearchParams();
+  const [login, setLogin] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (login) return;
+    const isLoggedIn = localStorage.getItem('login');
+    if (isLoggedIn) {
+      setLogin(true);
+    }
+  }, [login]);
+
+  useEffect(() => {
+    const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    setFavorites(storedFavorites);
+  }, []);
 
   const last = searchParams.get('last_price');
   const high = searchParams.get('high');
   const low = searchParams.get('low');
   const symbol = params.symbol.toUpperCase();
 
-  const isLoggedIn = localStorage.getItem('login') || null;
-  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
   const handleAddToFavorites = () => {
-    favorites.push(symbol);
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    const updatedFavorites = [...favorites, symbol];
+    setFavorites(updatedFavorites);
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
 
   const handleRemoveFromFavorites = () => {
     if (!favorites) return;
 
-    const newFavorites = [...favorites];
-
-    localStorage.removeItem('favorites');
-
-    const index = newFavorites.indexOf(symbol);
-
-    if (index > -1) {
-      newFavorites.splice(index, 1);
-
-      localStorage.setItem('favorites', JSON.stringify(newFavorites));
+    const updatedFavorites = [...favorites];
+    const index = updatedFavorites.indexOf(symbol);
+    if (index === -1) {
+      return;
     }
+    updatedFavorites.splice(index, 1);
+    setFavorites(updatedFavorites);
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
-
   return (
     <div>
       <h2>Details</h2>
@@ -55,7 +66,7 @@ const page = ({ params }) => {
           </tr>
         </tbody>
       </table>
-      {isLoggedIn &&
+      {login &&
         (favorites.includes(symbol) ? (
           <button
             className='m-4 p-2 px-6 bg-red-500'
