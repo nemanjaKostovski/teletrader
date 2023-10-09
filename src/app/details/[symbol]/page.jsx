@@ -1,5 +1,6 @@
 'use client';
 
+import Table from '@/app/components/Table';
 import { useLoginContext } from '@/app/components/loginContext/loginContext';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -40,24 +41,16 @@ const page = ({ params }) => {
   return (
     <div>
       <h2>Details</h2>
-      <table className='w-1/2 mt-8 ml-4 shadow-md table-auto border-separate p-4'>
-        <thead>
-          <tr>
-            <th className='text-left'>Symbol</th>
-            <th className='text-right'>Last price</th>
-            <th className='text-right'>High</th>
-            <th className='text-right'>Low</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className='text-left'>{symbol}</td>
-            <td className='text-right'>{last}</td>
-            <td className='text-right'>{high}</td>
-            <td className='text-right'>{low}</td>
-          </tr>
-        </tbody>
-      </table>
+      <Table
+        headerName
+        headerLast
+        headerHigh
+        headerLow
+        symbol={symbol}
+        last={last}
+        high={high}
+        low={low}
+      />
       {login &&
         (favorites.includes(symbol) ? (
           <button

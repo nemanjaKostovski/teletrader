@@ -4,7 +4,7 @@ const VERSION = '/v1';
 async function getSymbols() {
   const response = await fetch(`${URL}${VERSION}/symbols`);
   if (response.status !== 200) {
-    throw new Error(`Fetch failed ${response.status}`);
+    console.log(response);
   }
 
   const data = await response.json();
